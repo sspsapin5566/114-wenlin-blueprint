@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>文林國小 114 行政領航藍圖：學習共同體實踐視角</title>
+  <style>
+    :root {
+      --bg-color: #EEF2EB;
+      --title-color: #23412D;
+      --text-color: #4B504B;
+    }
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: var(--bg-color);
+      font-family: 'Microsoft JhengHei', -apple-system, sans-serif;
+      color: var(--text-color);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      overflow: hidden;
+    }
+    .slides-container {
+      position: relative;
+      width: 90vw;
+      max-width: 1200px;
+      height: 70vh;
+      min-height: 500px;
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(10px);
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    .slide {
+      display: none;
+      flex: 1;
+      padding: 40px;
+      box-sizing: border-box;
+    }
+    .slide.active {
+      display: flex;
+      animation: fadeIn 0.5s ease-in-out forwards;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .slide-layout {
+      display: flex;
+      width: 100%;
+      height: 100%;
+      gap: 40px;
+      align-items: center;
+    }
+    .slide-text {
+      flex: 1.2;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .slide-text h2 {
+      color: var(--title-color);
+      margin-top: 0;
+      margin-bottom: 24px;
+      font-size: 32px;
+      line-height: 1.3;
+      border-left: 5px solid var(--title-color);
+      padding-left: 15px;
+    }
+    .slide-text ul {
+      margin: 0;
+      padding-left: 20px;
+    }
+    .slide-text li {
+      font-size: 20px;
+      line-height: 1.8;
+      margin-bottom: 12px;
+      list-style-type: square;
+    }
+    .slide-image {
+      flex: 0.8;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+    }
+    .slide-image img {
+      max-width: 100%;
+      max-height: 90%;
+      border-radius: 12px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+      object-fit: cover;
+      aspect-ratio: 1;
+    }
+    .controls {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 40px;
+      background: rgba(255, 255, 255, 0.4);
+      border-top: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    .btn {
+      background: var(--title-color);
+      color: var(--bg-color);
+      border: none;
+      padding: 10px 20px;
+      font-size: 16px;
+      font-weight: bold;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: opacity 0.2s, transform 0.1s;
+    }
+    .btn:hover {
+      opacity: 0.9;
+    }
+    .btn:active {
+      transform: scale(0.98);
+    }
+    .btn:disabled {
+      background: #ccc;
+      cursor: not-allowed;
+    }
+    .progress-bar-container {
+      flex: 1;
+      height: 8px;
+      background: rgba(0, 0, 0, 0.05);
+      border-radius: 4px;
+      margin: 0 40px;
+      overflow: hidden;
+    }
+    .progress-bar {
+      height: 100%;
+      background: var(--title-color);
+      width: 0%;
+      transition: width 0.3s ease;
+    }
+    .slide-counter {
+      font-size: 16px;
+      font-weight: bold;
+      color: var(--text-color);
+      min-width: 60px;
+      text-align: right;
+    }
+    @media (max-width: 768px) {
+      body {
+        overflow-y: auto;
+        padding: 10px 0;
+      }
+      .slides-container {
+        width: 95vw;
+        height: calc(100dvh - 30px);
+        height: calc(100vh - 30px);
+        min-height: unset;
+        max-height: unset;
+        overflow: hidden;
+      }
+      .slide {
+        padding: 20px;
+        overflow-y: auto;
+        min-height: 0;
+      }
+      .slide-layout {
+        flex-direction: column;
+        gap: 20px;
+        align-items: flex-start;
+        height: auto;
+      }
+      .slide-text {
+        flex: none;
+        width: 100%;
+      }
+      .slide-image {
+        flex: none;
+        width: 100%;
+        height: auto;
+      }
+      .slide-text h2 {
+        font-size: 22px;
+        margin-bottom: 12px;
+      }
+      .slide-text li {
+        font-size: 16px;
+        line-height: 1.6;
+        margin-bottom: 8px;
+      }
+      .slide-image {
+        width: 100%;
+        margin-top: 10px;
+      }
+      .slide-image img {
+        max-height: 180px;
+        width: auto;
+        aspect-ratio: auto;
+      }
+      #slide-1 .slide-image img {
+        max-width: 90%;
+        max-height: 180px;
+      }
+      .controls {
+        padding: 15px 20px;
+      }
+      .btn {
+        padding: 8px 15px;
+        font-size: 14px;
+      }
+      .progress-bar-container {
+        margin: 0 15px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="slides-container">
+
+    <section class="slide" id="slide-1">
+      <div class="slide-layout">
+        <div class="slide-text">
+          <h2>文林國小 114 行政領航藍圖：學習共同體實踐視角</h2>
+          <ul>
+          <li>本簡報以佐藤學「學習共同體」(SLC) 核心哲學進行深度轉譯</li>
+          <li>將「依法行政」與「服務創新」轉化為守護課堂學習的堅實後盾</li>
+          <li>構築聆聽關係、協同合作與行政減量，共創文林新價值</li>
+          </ul>
+        </div>
+        <div class="slide-image">
+          <img src="./images/slide_1.png" alt="Slide 1 Illustration">
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" id="slide-2">
+      <div class="slide-layout">
+        <div class="slide-text">
+          <h2>確立文林行政團隊的三大辦學基石 (SLC 視角)</h2>
+          <ul>
+          <li>【專業學習】以課例研究與教學觀察為核心，引領校內教師專業協作</li>
+          <li>【依法行政】建立穩固與透明的制度，為教學現場提供安心的學習場所</li>
+          <li>【服務創新】簡化行政流程，提供有溫度的後勤支援，降低教學負擔</li>
+          </ul>
+        </div>
+        <div class="slide-image">
+          <img src="./images/slide_2.png" alt="Slide 2 Illustration">
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" id="slide-3">
+      <div class="slide-layout">
+        <div class="slide-text">
+          <h2>行政的終極價值：將複雜校務轉化為順暢教學軌道</h2>
+          <ul>
+          <li>簡化與過濾：將複雜的外部資源與需求進行行政過濾 (Administrative Filter)</li>
+          <li>營造安心環境：把無序變有序，讓教師免受瑣碎行政干擾，專注引導學習</li>
+          <li>促進個體成為整體：透過橫向協作，將處室孤島連結成支援教學的共同體</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" id="slide-4">
+      <div class="slide-layout">
+        <div class="slide-text">
+          <h2>支柱一：以「生命共同體」為核心的團隊協作</h2>
+          <ul>
+          <li>傾聽親師生聲音：以「聆聽」為起點，建立行政與教學的民主溝通語言</li>
+          <li>溫柔的堅持與彈性：在堅守法規底線的同時，以溫暖溫柔的溝通尋求多贏</li>
+          <li>準備與協同合作：打破個人主義，以團隊協作方式分擔學校公共事務壓力</li>
+          </ul>
+        </div>
+        <div class="slide-image">
+          <img src="./images/slide_4.png" alt="Slide 4 Illustration">
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" id="slide-5">
+      <div class="slide-layout">
+        <div class="slide-text">
+          <h2>支柱二：將「速度與敏捷」視為行政服務的創新指標</h2>
+          <ul>
+          <li>速度即品質：以敏捷回應提升行政品質，協助現場及時解決教學困境</li>
+          <li>理性排序 (艾森豪矩陣)：區分緊急與重要業務，杜絕「每次都最速件」的行政重荷</li>
+          <li>行政減量契量：系統化處理常規業務，為教學觀察與課例研究爭取寶貴時間</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" id="slide-6">
+      <div class="slide-layout">
+        <div class="slide-text">
+          <h2>支柱三：建立「抬頭看看、適時回報」的溝通迴圈</h2>
+          <ul>
+          <li>抬頭看看：隨時掌握全局與外部環境變化，主動對齊學校的教學發展核心</li>
+          <li>適時回報與對話：建立雙向的溝通迴圈，避免埋頭苦幹導致的行政盲區</li>
+          <li>重點個案管理：針對特殊個案進行跨處室協同，建立學校防護網</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" id="slide-7">
+      <div class="slide-layout">
+        <div class="slide-text">
+          <h2>支柱四：兼具「系統整體思維」與「魔鬼細節」的雙重視角</h2>
+          <ul>
+          <li>系統性思考：謀定後動，全面盤點校內計畫、經費與人力，確保資源對準學習</li>
+          <li>細節中的貓膩與天使：在細微的行政執行中發現問題，用專業與細緻展現行政溫度</li>
+          <li>追求細節的專業感：每一項精緻的行政細節，都是對教師專業教學的尊重</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" id="slide-8">
+      <div class="slide-layout">
+        <div class="slide-text">
+          <h2>構築文林行政團隊的四大領導力象限</h2>
+          <ul>
+          <li>【知識領導】向課堂教學者學習，具備專業洞察力以支援教學前線</li>
+          <li>【敏捷領導】洞察現場教學需求，快速響應，推動服務與流程創新</li>
+          <li>【關係領導】關照親師生需求，建立公共溝通語言，凝聚生命共同體</li>
+          <li>【績效領導】創造舞台與機會，讓教師的專業表現與學生的跳躍學習被看見</li>
+          </ul>
+        </div>
+        <div class="slide-image">
+          <img src="./images/slide_8.png" alt="Slide 8 Illustration">
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" id="slide-9">
+      <div class="slide-layout">
+        <div class="slide-text">
+          <h2>從傳統思維到文林標準的認知升級矩陣</h2>
+          <ul>
+          <li>工作模式升級：從孤立的「埋頭苦幹」轉向「抬頭看看，適時回報」的協同模式</li>
+          <li>執行標準升級：從「有就好」的敷衍態度提升至「在細節中尋找天使」的極致追求</li>
+          <li>制度應用升級：從「僵化執行」轉為「溫柔的堅持與彈性」之滾動式修正</li>
+          <li>成功信念升級：從「努力就夠了」邁向「建立好習慣，全面關照需求」</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" id="slide-10">
+      <div class="slide-layout">
+        <div class="slide-text">
+          <h2>文林敏捷行政循環：滾動式修正與持續進化</h2>
+          <ul>
+          <li>計畫階段：系統思考與整體思維，確保所有行政規章合法且符合教學現場</li>
+          <li>執行階段：速度與品質同步追求，以最高效率排除教學障礙</li>
+          <li>考核與省思：在細節中檢視成果，依據現場反饋進行滾動式修正與彈性微調</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" id="slide-11">
+      <div class="slide-layout">
+        <div class="slide-text">
+          <h2>第一學期運作節奏：佈局、協同與前瞻</h2>
+          <ul>
+          <li>8月 準備期：五處室橫向聯繫，排除開學障礙，建立井然有序的學習環境</li>
+          <li>9-10月 磨合期：落實回報機制，形成行政與教學間良好的聆聽與對話習慣</li>
+          <li>月 檢視期：全面盤點計畫、制度與預算，進行行政減量的滾動式盤整</li>
+          <li>2-1月 前瞻期：省思學習成效，回顧並規劃新年度的服務創新策略</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" id="slide-12">
+      <div class="slide-layout">
+        <div class="slide-text">
+          <h2>第二學期運作節奏：創新、展現與反思</h2>
+          <ul>
+          <li>2月 重啟期：完成開學準備，以反思為起點調整行政支援步調</li>
+          <li>3-4月 展現期：全員參與服務創新，展現教師專業與學生的伸展跳躍學習</li>
+          <li>5月 深究期：應對校務複雜性，全面反思各層級人員的做法與核心思維</li>
+          <li>6-7月 總結期：總結循環改進歷程，確保學校既定計畫與考核精準落地</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" id="slide-13">
+      <div class="slide-layout">
+        <div class="slide-text">
+          <h2>雙軸平衡：依法行政是行政減量的最佳途徑</h2>
+          <ul>
+          <li>堅守法規與原則：講規矩、依循原則辦事，可降低人為決策的灰色地帶與糾紛</li>
+          <li>減少行政重工：清晰的規則與穩固制度能避免重複溝通，降低隱性行政負荷</li>
+          <li>實現行政減量：當行政化繁為簡，教師便能從雜務中解放，專注於協同課堂</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" id="slide-14">
+      <div class="slide-layout">
+        <div class="slide-text">
+          <h2>行政價值鏈：行政的承擔，成就教學的自由</h2>
+          <ul>
+          <li>行政主動承擔：由行政處室承擔申請經費與填報成果等繁瑣、硬性的重擔</li>
+          <li>教學回歸自由：降低教師非教學性負荷，「行政愈忙，老師愈能專注教學」</li>
+          <li>共創有意義的成果：行政的努力是為了讓老師和學生忙得有意義、有豐碩成果</li>
+          </ul>
+        </div>
+        <div class="slide-image">
+          <img src="./images/slide_14.png" alt="Slide 14 Illustration">
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" id="slide-15">
+      <div class="slide-layout">
+        <div class="slide-text">
+          <h2>啟航 114：以學習共同體共創文林新價值</h2>
+          <ul>
+          <li>生命共同體：校長、行政團隊與教學現場是一起守護孩子學習的生命共同體</li>
+          <li>建立聆聽與支持：以聆聽建構信任，以專業開創文林國小的新局與未來</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+    
+    <!-- Navigation Controls -->
+    <div class="controls">
+      <button class="btn" id="prev-btn" onclick="changeSlide(-1)">上一頁</button>
+      <div class="progress-bar-container">
+        <div class="progress-bar" id="progress-bar"></div>
+      </div>
+      <button class="btn" id="next-btn" onclick="changeSlide(1)">下一頁</button>
+      <span class="slide-counter" id="slide-counter">1 / 15</span>
+    </div>
+  </div>
+
+  <script>
+    let currentSlideIndex = 0;
+    const slides = document.querySelectorAll('.slide');
+    const totalSlides = slides.length;
+    const prevBtn = document.getElementById('prev-btn');
+    const nextBtn = document.getElementById('next-btn');
+    const progressBar = document.getElementById('progress-bar');
+    const slideCounter = document.getElementById('slide-counter');
+
+    function showSlide(index) {
+      slides.forEach((slide, i) => {
+        slide.classList.toggle('active', i === index);
+      });
+      
+      currentSlideIndex = index;
+      
+      // Update buttons
+      prevBtn.disabled = index === 0;
+      nextBtn.disabled = index === totalSlides - 1;
+      
+      // Update progress bar
+      const progressPercent = ((index + 1) / totalSlides) * 100;
+      progressBar.style.width = `${progressPercent}%`;
+      
+      // Update counter
+      slideCounter.innerText = `${index + 1} / ${totalSlides}`;
+    }
+
+    function changeSlide(direction) {
+      let targetIndex = currentSlideIndex + direction;
+      if (targetIndex >= 0 && targetIndex < totalSlides) {
+        showSlide(targetIndex);
+      }
+    }
+
+    // Keyboard navigation
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === ' ') {
+        changeSlide(1);
+      } else if (e.key === 'ArrowLeft') {
+        changeSlide(-1);
+      }
+    });
+
+    // Touch Swipe Navigation for Mobile
+    let touchstartX = 0;
+    let touchendX = 0;
+    let touchstartY = 0;
+    let touchendY = 0;
+    
+    const container = document.querySelector('.slides-container');
+    
+    container.addEventListener('touchstart', (e) => {
+      touchstartX = e.changedTouches[0].screenX;
+      touchstartY = e.changedTouches[0].screenY;
+    }, {passive: true});
+    
+    container.addEventListener('touchend', (e) => {
+      touchendX = e.changedTouches[0].screenX;
+      touchendY = e.changedTouches[0].screenY;
+      handleSwipe();
+    }, {passive: true});
+    
+    function handleSwipe() {
+      const diffX = touchendX - touchstartX;
+      const diffY = touchendY - touchstartY;
+      // Swipe threshold is 50px, horizontal must be larger than vertical
+      if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 50) {
+        if (diffX > 0) {
+          changeSlide(-1); // Swipe right -> previous slide
+        } else {
+          changeSlide(1);  // Swipe left -> next slide
+        }
+      }
+    }
+
+    // Initialize first slide
+    showSlide(0);
+  </script>
+</body>
+</html>
